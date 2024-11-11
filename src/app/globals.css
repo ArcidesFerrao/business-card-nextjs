@@ -1,7 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -15,7 +20,67 @@
 }
 
 body {
+  margin: 0;
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Ubuntu", sans-serif;
+}
+
+main {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: max-content;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+}
+
+h1 {
+  font-size: xx-large;
+}
+
+.container {
+  display: grid;
+  grid-template-areas: "form display";
+  gap: 6rem;
+}
+
+.title {
+}
+
+.form {
+  grid-area: form;
+
+  width: max-content;
+}
+
+.display {
+  grid-area: display;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1rem;
+  padding: 1rem;
+
+  border: #ededed solid 1px;
+  border-radius: 1rem;
+}
+
+form div {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+button {
+  background-color: #171717;
+  width: max-content;
+  padding: 0.4rem 1rem;
+  align-self: center;
+  margin-top: 1rem;
 }
