@@ -3,7 +3,7 @@ import "./display.css";
 
 export default function CardDisplay() {
   return (
-    <div className="data">
+    <div className="data display">
       <div className="title">
         <span className="companyIcon"></span>
         <div className="subtitle">

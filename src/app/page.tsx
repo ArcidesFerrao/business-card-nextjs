@@ -1,4 +1,4 @@
-import CardDisplay from "./components/cardDisplay";
+// import CardDisplay from "./components/cardDisplay";
 import CardForm from "./components/cardForm";
 
 // interface CardProps {
@@ -16,16 +16,7 @@ export default function Home() {
       <h1 className="title">Business Card</h1>
 
       <div className="container">
-        <section className="form">
-          <CardForm />
-        </section>
-        <section className="display">
-          <CardDisplay
-          // name={name}
-          // email={email}
-          // number={number}
-          />
-        </section>
+        <CardForm />
       </div>
     </main>
   );

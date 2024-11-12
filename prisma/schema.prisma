@@ -24,7 +24,7 @@ model Card {
   id       String  @id @default(uuid())
   company  String
   email    String  @unique
-  phone    Int     @unique
+  phone    String  @unique
   author   User?   @relation(fields: [authorId], references: [id])
   authorId String?
 }
