@@ -13,6 +13,9 @@ const handler = NextAuth({
             clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
         })
     ],
+    pages: {
+        signIn: "/auth/login",
+    }
     // callbacks: {
     //     async session({ session, token }) {
     //         return session;
@@ -23,5 +26,5 @@ const handler = NextAuth({
     // }
 })
 
-export default NextAuth(handler)
+export {handler as GET, handler as POST}
 
