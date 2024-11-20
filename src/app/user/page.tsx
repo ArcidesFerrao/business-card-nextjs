@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 
 const UserPage = async () => {
   const user = await db.user.current();
-  console.log({ user });
+  //   console.log({ user });
   if (!user) redirect("/");
 
   return <div>User: {user.name}</div>;

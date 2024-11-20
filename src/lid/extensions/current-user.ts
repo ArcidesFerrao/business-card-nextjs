@@ -13,15 +13,15 @@ export function currentUser() {
                         console.log("Session", session);
 
                         if (!session?.user?.email) {
-                            console.log("no email session")
+                            console.log("no session")
                             return null;
 
                         }
                         const userExist = await client.user.findUnique({
-                            where: {email: session.user?.email },
+                            where: {email: session.user.email },
                         });
 
-                        return userExist;
+                        return userExist || null ;
                     }
                 }
             }

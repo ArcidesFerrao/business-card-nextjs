@@ -156,6 +156,26 @@ a:visited {
   font-size: small;
 }
 
+.user-list {
+  padding: 1rem;
+  border-radius: 4px;
+  border: #f4f5fa67 solid 1px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+
+  h1 {
+    font-size: larger;
+  }
+
+  li {
+    font-size: small;
+  }
+}
+
 img {
   width: 20px;
   height: 20px;

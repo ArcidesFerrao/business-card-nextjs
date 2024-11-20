@@ -2,6 +2,7 @@
 import AuthButton from "./components/AuthButton";
 import CardForm from "./components/cardForm";
 import type { Metadata } from "next";
+import UserList from "./components/UserList";
 
 export const metadata: Metadata = {
   title: "Business Card",
@@ -25,6 +26,7 @@ export default function Home() {
         <CardForm />
       </div>
       <AuthButton />
+      <UserList />
     </main>
   );
 }
