@@ -2,6 +2,9 @@
 import { z } from "zod";
 import prisma from "@/db/db";
 import { NextApiRequest, NextApiResponse } from "next";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lid/auth";
+
 
 // import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -26,17 +29,44 @@ export async function addCard(prevState: unknown, formData: FormData) {
     const data = result.data;
     console.log(data.company)
 
+    const authorId = await idCard;
+    
+
     await prisma.card.create({
         data: {
             company: data.company,
             email: data.email,
             phone: data.phone,
+            authorId: authorId,
         }
     })
 }
 
+async function idCard(req: NextApiRequest , res: NextApiResponse) {
+    const session = await getServerSession(req, res, authOptions)
+
+    if (!session) {
+        res.status(401).json({ error: "Unauthorized" })
+        return
+    }
+
+    const prismaUser = await prisma.user.findUnique({
+        where: { email: session.user?.email },
+    })
+
+    if (!prismaUser) {
+        res.status(401).json({ error: "Unauthorized" })
+        return
+    }
+
+    return prismaUser.id
+
+}
+
 
 export async function handler(req: NextApiRequest, res: NextApiResponse) {
+    
+
     if (req.method !== 'POST') {
         return res.status(405).json({ message: "Method not allowed" })
     }

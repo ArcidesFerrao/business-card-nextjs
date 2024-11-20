@@ -1,30 +1,7 @@
+import { authOptions } from "@/lid/auth";
 import NextAuth from "next-auth";
-import Google from "next-auth/providers/google";
-import GitHubProvider from "next-auth/providers/github";
 
-const handler = NextAuth({
-    providers: [
-        GitHubProvider({
-            clientId: process.env.GITHUB_CLIENT_ID!,
-            clientSecret: process.env.GITHUB_CLIENT_SECRET!,
-        }),
-        Google({
-            clientId: process.env.GOOGLE_CLIEND_ID!,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-        })
-    ],
-    pages: {
-        signIn: "/auth/login",
-    }
-    // callbacks: {
-    //     async session({ session, token }) {
-    //         return session;
-    //     },
-    //     async jwt({ token, user }) {
-    //         return token;
-    //     }
-    // }
-})
+
+const handler = NextAuth(authOptions);
 
 export {handler as GET, handler as POST}
-
