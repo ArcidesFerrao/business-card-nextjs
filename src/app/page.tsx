@@ -26,7 +26,6 @@ export default function Home() {
         <CardForm />
       </div>
       <AuthButton />
-      <UserList />
     </main>
   );
 }

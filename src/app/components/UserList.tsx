@@ -1,5 +1,5 @@
-import db from "@/db/db";
 import React from "react";
+import db from "@/db/db";
 
 export default async function UserList() {
   const users = await db.user.findMany({

@@ -2,12 +2,14 @@
 import { useActionState, useState } from "react";
 import "./display.css";
 import { addCard } from "../_actions/cards";
+import { useSession } from "next-auth/react";
 
 export default function CardForm() {
   const [error, action] = useActionState(addCard, {});
   const [phoneNumber, setPhoneNumber] = useState("");
   const [company, setCompany] = useState("");
   const [email, setEmail] = useState("");
+  const { data: session, status } = useSession();
 
   const formatPhoneNumber = (input: string) => {
     const digits = input.replace(/\D/g, "");
@@ -62,7 +64,7 @@ export default function CardForm() {
           {/* {error?.phone && <p className="alert">{error.phone}</p>} */}
         </div>
       </form>
-      <input form="cardForm" type="submit" value="Submit" />
+      {session && <input form="cardForm" type="submit" value="Save" />}
 
       <div className="data display">
         <div className="title">

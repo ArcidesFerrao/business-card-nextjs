@@ -18,8 +18,12 @@ export default function SignIn() {
     }
   }, [status, router]);
 
-  const handleSignIn = () => {
-    signIn("github");
+  const handleSignIn = async () => {
+    try {
+      signIn("github");
+    } catch (error) {
+      console.error("Sign In Failed: ", error);
+    }
   };
 
   return (

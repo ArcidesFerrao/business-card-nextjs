@@ -15,7 +15,7 @@ export default function AuthButton() {
   }
 
   return (
-    <div className={loading ? "display-flex gap-2 bg-gray-500" : ""}>
+    <div className={`auth-button ${loading ? "bg-gray-500" : ""}`}>
       {!session?.user ? (
         <a
           href={`/api/auth/signin`}
@@ -27,9 +27,12 @@ export default function AuthButton() {
           Sign In
         </a>
       ) : (
-        <div>
-          <p>Welcome, {session.user?.name}</p>
+        <div className="signed">
+          <p>
+            Welcome, <a href="/user">{session.user?.name}</a>
+          </p>
           <a
+            className="signout"
             href={`/api/auth/signout`}
             onClick={(e) => {
               e.preventDefault();
