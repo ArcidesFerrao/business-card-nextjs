@@ -6,8 +6,10 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import db, { baseDb } from "@/db/db";
 import { PrismaClient } from "@prisma/client";
 
+
+
 export const authOptions = {
-    adapter: PrismaAdapter(baseDb as unknown as PrismaClient),
+    adapter: PrismaAdapter(db as unknown as PrismaClient),
     providers: [
         GitHubProvider({
             clientId: process.env.GITHUB_CLIENT_ID!,
@@ -26,7 +28,7 @@ export const authOptions = {
         async jwt({ token, account }) {
             if (account) {
                 token.accessToken = account.access_token;
-                token.provider = account.provider;
+                token.email = account.access_token;
             }
             return token;
         },
@@ -78,10 +80,13 @@ export const authOptions = {
             }
             return true;
         },
-        async session({session, user}) {
-            session.user.email = user.email,
-            session.user.accessToken = user.accessToken;
-            return session
+        async session({session, token}) {
+            if (token) {
+                session.user.email = token.email || null;
+            session.user.accessToken = token.accessToken || null;
+        }
+            
+            return session;
         },
         async redirect({ url, baseUrl}) {
             if (url === "/api/auth/callback/github") {

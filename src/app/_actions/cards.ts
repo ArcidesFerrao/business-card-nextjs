@@ -1,12 +1,11 @@
 "use server"
 import { z } from "zod";
-import prisma from "@/db/db";
-import { NextApiRequest, NextApiResponse } from "next";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lid/auth";
+import db from "@/db/db";
+// import { NextApiRequest, NextApiResponse } from "next";
+// import { getServerSession } from "next-auth/next";
+// import { authOptions } from "@/lid/auth";
+import idCard from "./idCard";
 
-
-// import { zodResolver } from '@hookform/resolvers/zod'
 
 const phoneRegex = /^\d{3} \d{2} \d{2} \d{2} \d{3}$/;
 
@@ -18,21 +17,25 @@ const addSchema = z.object({
     phone: phoneSchema ,
 })
 
-export async function addCard(prevState: unknown, formData: FormData) {
-    console.log(formData)
+export async function addCard(prev, formData: FormData){
+
     const result = addSchema.safeParse(Object.fromEntries(formData.entries()));
     
-    if(result.success === false) {
-        return result.error.formErrors.fieldErrors;
+
+
+    if(!result.success) {
+
+        return {
+            errors: result.error.flatten().fieldErrors,
+        }
     }
 
     const data = result.data;
     console.log(data.company)
 
-    const authorId = await idCard;
+    const authorId = await idCard();
     
-
-    await prisma.card.create({
+    await db.card.create({
         data: {
             company: data.company,
             email: data.email,
@@ -40,43 +43,7 @@ export async function addCard(prevState: unknown, formData: FormData) {
             authorId: authorId,
         }
     })
-}
 
-async function idCard(req: NextApiRequest , res: NextApiResponse) {
-    const session = await getServerSession(req, res, authOptions)
-
-    if (!session) {
-        res.status(401).json({ error: "Unauthorized" })
-        return
-    }
-
-    const prismaUser = await prisma.user.findUnique({
-        where: { email: session.user?.email },
-    })
-
-    if (!prismaUser) {
-        res.status(401).json({ error: "Unauthorized" })
-        return
-    }
-
-    return prismaUser.id
-
-}
-
-
-export async function handler(req: NextApiRequest, res: NextApiResponse) {
     
-
-    if (req.method !== 'POST') {
-        return res.status(405).json({ message: "Method not allowed" })
-    }
-
-    try {
-        const validateData = addSchema.parse(req.body);
-
-        res.status(200).json({ message: "Phone number is valid", data: validateData})
-    } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : "Invalid data"
-        res.status(400).json({ message: errorMessage })
-    }
 }
+

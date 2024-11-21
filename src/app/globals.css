@@ -71,16 +71,41 @@ a:visited {
   text-decoration: none;
 }
 
+@media (max-width: 999px) {
+  /* Styles for screens less than 1000px wide */
+  .container {
+    display: flex !important;
+    flex-direction: column;
+    height: 550px;
+    max-width: fit-content;
+    align-items: center;
+  }
+
+  .form {
+    padding: 2rem;
+    margin: 1rem auto;
+  }
+}
+
 .container {
   display: grid;
-  grid-template-areas: "form display";
-  gap: 6rem;
+  width: 1000px;
+  justify-content: space-evenly;
+  grid-template-areas:
+    "form display"
+    ". save";
+  /* gap: 6rem; */
+}
+
+.saveB {
+  grid-area: save;
 }
 
 .form {
   grid-area: form;
 
   width: max-content;
+  min-height: 12rem;
 }
 
 .display {
@@ -88,6 +113,7 @@ a:visited {
 
   background-color: #171717;
   width: 30rem;
+  height: 15rem;
   margin: 0;
   display: grid;
   grid-template-columns: 15rem 15rem;
@@ -121,7 +147,7 @@ a:visited {
   grid-area: sidebar;
 }
 
-.title {
+.title-display {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -167,6 +193,7 @@ a:visited {
 }
 
 .auth-button {
+  cursor: pointer;
   position: fixed;
   right: 1rem;
   top: 2rem;
@@ -243,6 +270,7 @@ form div {
 
 input:not([type="submit"]) {
   background: none;
+  border: none;
   border-bottom: #ededed 1px solid;
   font-weight: 300;
 }
@@ -262,7 +290,11 @@ button {
 input[type="submit"]:hover,
 .signout:hover,
 button:hover {
-  background-color: #f4f5faa2;
+  background-color: rgba(244, 245, 250, 0.3);
+}
+
+button:disabled {
+  background-color: rgba(244, 245, 250, 0.678);
   color: #191919;
 }
 

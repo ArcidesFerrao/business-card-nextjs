@@ -2,7 +2,7 @@
 
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function SignIn() {
   // const [email, setEmail] = useState("");
@@ -11,8 +11,12 @@ export default function SignIn() {
   const router = useRouter();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data: session, status } = useSession();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (status === "loading") {
+      setLoading(!loading);
+    }
     if (status === "authenticated") {
       router.push("/user");
     }
@@ -27,13 +31,15 @@ export default function SignIn() {
   };
 
   return (
-    <div>
+    <main>
       <div>
         <h1>Sign In</h1>
       </div>
       <div>
-        <button onClick={handleSignIn}>Sign in with Github</button>
+        <button onClick={handleSignIn} disabled={loading}>
+          Sign in with Github
+        </button>
       </div>
-    </div>
+    </main>
   );
 }
