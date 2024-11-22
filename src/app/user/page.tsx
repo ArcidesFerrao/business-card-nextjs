@@ -1,16 +1,17 @@
 import db from "@/db/db";
 import AuthButton from "../components/AuthButton";
 import UserList from "../components/UserList";
+import CardList from "../components/CardList";
 
 const UserPage = async () => {
   const user = await db.user.current();
   //   console.log({ user });
   if (!user) {
     return (
-      <div>
+      <main>
         <p>Sign in first</p>
         <AuthButton />
-      </div>
+      </main>
     );
   }
 
@@ -21,6 +22,7 @@ const UserPage = async () => {
       </a>
       User: {user.name}
       <UserList />
+      <CardList />
     </main>
   );
 };

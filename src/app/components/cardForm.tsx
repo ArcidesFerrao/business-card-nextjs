@@ -63,20 +63,22 @@ export default function CardForm() {
           <input
             type="tel"
             name="phone"
-            maxLength={12}
+            maxLength={16}
             // pattern="[0-9]{3}-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{3}"
             placeholder="258 80 12 34 567"
             onChange={handleChange}
             // value={phoneNumber}
           />
         </div>
+      </form>
+      <div className="display-error">
         {state?.errors.email && <p className="alert">{state?.errors.email}</p>}
         {state?.errors.company && (
           <p className="alert">{state?.errors.company}</p>
         )}
 
         {state?.errors.phone && <p className="alert">{state?.errors.phone}</p>}
-      </form>
+      </div>
 
       <div className="data display">
         <div className="title-display">

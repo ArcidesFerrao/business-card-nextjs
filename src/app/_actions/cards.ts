@@ -1,9 +1,6 @@
 "use server"
 import { z } from "zod";
 import db from "@/db/db";
-// import { NextApiRequest, NextApiResponse } from "next";
-// import { getServerSession } from "next-auth/next";
-// import { authOptions } from "@/lid/auth";
 import idCard from "./idCard";
 
 
@@ -21,8 +18,6 @@ export async function addCard(prev, formData: FormData){
 
     const result = addSchema.safeParse(Object.fromEntries(formData.entries()));
     
-
-
     if(!result.success) {
 
         return {
@@ -43,7 +38,5 @@ export async function addCard(prev, formData: FormData){
             authorId: authorId,
         }
     })
-
-    
 }
 

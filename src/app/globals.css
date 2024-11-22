@@ -91,10 +91,15 @@ a:visited {
   display: grid;
   width: 1000px;
   justify-content: space-evenly;
+  row-gap: 1rem;
   grid-template-areas:
     "form display"
     ". save";
   /* gap: 6rem; */
+}
+
+.display-error {
+  padding: 0 2rem;
 }
 
 .saveB {
@@ -296,6 +301,26 @@ button:hover {
 button:disabled {
   background-color: rgba(244, 245, 250, 0.678);
   color: #191919;
+}
+
+table {
+  table-layout: unset;
+  border: #191919 1px solid;
+  border-radius: 4px;
+}
+
+td,
+thead,
+th {
+  padding: 1rem;
+}
+
+th {
+  font-weight: 500;
+}
+td {
+  background-color: rgba(244, 245, 250, 0.08);
+  font-weight: 200;
 }
 
 .solar--phone-broken {
