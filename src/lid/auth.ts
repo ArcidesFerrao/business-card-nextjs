@@ -4,6 +4,7 @@ import { AuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import db, { baseDb } from "@/db/db";
+import Google from "next-auth/providers/google";
 
 export const authOptions = {
     adapter: PrismaAdapter(baseDb),
@@ -13,6 +14,10 @@ export const authOptions = {
             clientId: process.env.GITHUB_CLIENT_ID!,
             clientSecret: process.env.GITHUB_CLIENT_SECRET!,
         }),
+        Google({
+            clientId: process.env.AUTH_GOOGLE_ID!,
+            clientSecret: process.env.AUTH_GOOGLE_SECRET!
+        }) ,
     ],
     session: {
         strategy: "database",
@@ -23,15 +28,16 @@ export const authOptions = {
         error: "/api/auth/error",
     },
     callbacks: {
-        async jwt({ token, account }) {
-            if (account) {
-                token.accessToken = account.access_token;
-                token.email = account.access_token;
+        async jwt({ token, user, account }) {
+            console.log("Account token:", account?.access_token);
+            if (account && user) {
+                token.accessToken = (account.access_token as string | undefined) ?? null;
+                token.email = user.email ?? null;
             }
             return token;
         },
         async signIn({ user, account, profile}) {
-            if (account?.provider === 'github') {
+            if (account?.provider === 'github' || account?.provider === "google" ) {
                 const existingAccount = await db.account.findUnique({
                     where: {
                         provider_providerAccountId: {
@@ -61,7 +67,8 @@ export const authOptions = {
                         const newUser = await db.user.create({
                             data: {
                                 email: user.email!,
-                                name: user.name 
+                                name: user.name,
+                                image: user.image 
                             }
                         });
     
@@ -80,16 +87,16 @@ export const authOptions = {
         },
         async session({session, token}) {
             if (token) {
-                session.user.email = token.email || null;
-            session.user.accessToken = token.accessToken || null;
+                session.user.email = token.email ?? null;
+            session.user.accessToken = (token.accessToken as string | undefined) ?? null;
         }
             
             return session;
         },
         async redirect({ url, baseUrl}) {
             if (url === "/api/auth/callback/github") {
-                return baseUrl;
-            }
+                    return baseUrl;
+                }
             return url;
         }
     },

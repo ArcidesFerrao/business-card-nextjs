@@ -1,6 +1,7 @@
 "use client";
 
 import { signIn, signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 // import { authOptions } from "../api/auth/[...nextauth]";
@@ -29,19 +30,30 @@ export default function AuthButton() {
       ) : (
         <div className="signed">
           <p>
-            Welcome, <a href="/user">{session.user?.name}</a>
+            Welcome, <a href="/user">{session.user.name}</a>
           </p>
-          <a
-            className="signout"
-            href={`/api/auth/signout`}
-            onClick={(e) => {
-              e.preventDefault();
-              signOut();
-              router.push("/");
-            }}
-          >
-            Sign Out
-          </a>
+          <div className="sign-pic">
+            {session.user.image && (
+              <Image
+                src={session.user.image}
+                alt={"avatar"}
+                width={24}
+                height={24}
+                className="avatar"
+              />
+            )}
+            <a
+              className="signout"
+              href={`/api/auth/signout`}
+              onClick={(e) => {
+                e.preventDefault();
+                signOut();
+                router.push("/");
+              }}
+            >
+              Sign Out
+            </a>
+          </div>
         </div>
       )}
     </div>

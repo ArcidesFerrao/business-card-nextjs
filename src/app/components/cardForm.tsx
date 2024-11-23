@@ -1,6 +1,5 @@
 "use client";
 import { useActionState, useState } from "react";
-import "./display.css";
 import { addCard } from "../_actions/cards";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";

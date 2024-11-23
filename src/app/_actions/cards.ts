@@ -3,7 +3,6 @@ import { z } from "zod";
 import db from "@/db/db";
 import idCard from "./idCard";
 
-
 const phoneRegex = /^\d{3} \d{2} \d{2} \d{2} \d{3}$/;
 
 const phoneSchema = z.string().regex(phoneRegex, { message: "Invalid phone number"}) 
@@ -14,7 +13,7 @@ const addSchema = z.object({
     phone: phoneSchema ,
 })
 
-export async function addCard(prev, formData: FormData){
+export async function addCard(prev: unknown, formData: FormData){
 
     const result = addSchema.safeParse(Object.fromEntries(formData.entries()));
     

@@ -13,6 +13,8 @@ export default function SignIn() {
   const { data: session, status } = useSession();
   const [loading, setLoading] = useState(false);
 
+  console.log(session?.user.accessToken);
+
   useEffect(() => {
     if (status === "loading") {
       setLoading(!loading);
@@ -22,9 +24,9 @@ export default function SignIn() {
     }
   }, [status, router]);
 
-  const handleSignIn = async () => {
+  const handleSignIn = async (provider: string) => {
     try {
-      signIn("github");
+      signIn(provider);
     } catch (error) {
       console.error("Sign In Failed: ", error);
     }
@@ -35,9 +37,12 @@ export default function SignIn() {
       <div>
         <h1>Sign In</h1>
       </div>
-      <div>
-        <button onClick={handleSignIn} disabled={loading}>
+      <div className="providers">
+        <button onClick={() => handleSignIn("github")} disabled={loading}>
           Sign in with Github
+        </button>
+        <button onClick={() => handleSignIn("google")} disabled={loading}>
+          Sign in with Google
         </button>
       </div>
     </main>

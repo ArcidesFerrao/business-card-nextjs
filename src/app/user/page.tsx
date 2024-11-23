@@ -1,7 +1,8 @@
 import db from "@/db/db";
 import AuthButton from "../components/AuthButton";
-import UserList from "../components/UserList";
+// import UserList from "../components/UserList";
 import CardList from "../components/CardList";
+import Link from "next/link";
 
 const UserPage = async () => {
   const user = await db.user.current();
@@ -17,11 +18,11 @@ const UserPage = async () => {
 
   return (
     <main>
-      <a href="/" className="home-button">
+      <Link href="/" className="home-button">
         Home
-      </a>
+      </Link>
       User: {user.name}
-      <UserList />
+      {/* <UserList /> */}
       <CardList />
     </main>
   );
