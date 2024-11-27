@@ -1,11 +1,11 @@
 import type { NextConfig } from "next";
-module.exports = {
-  matcher: ["/app"],
+
+
+
+const nextConfig: NextConfig = {
   images: {
     domains: ['avatars.githubusercontent.com'],
   },
-}
-const nextConfig: NextConfig = {
   /* config options here */
   
 };

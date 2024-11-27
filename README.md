@@ -11,13 +11,13 @@ A full-stack web application for managing and sharing business card information.
 
 ## Tech Stack
 
-- Frontend: Next.js (React 18+)
-- Backend: Next.js API routes
-- Authentication: NextAuth.js with Google and GitHub providers
-- Database: PostgreSQL hosted on Neon Console
-- Hosting: Vercel
-- Styling: Tailwind CSS (or specify the library you used)
-- Other Tools: ESLint, Prettier
+- **Frontend**: Next.js (React 18+)
+- **Backend**: Next.js API routes
+- **Authentication**: NextAuth.js with Google and GitHub providers
+- **Database**: PostgreSQL hosted on Neon Console
+- **Hosting**: Vercel
+- **Styling**: Tailwind CSS (or specify the library you used)
+- **Other Tools**: ESLint, Prettier
 
 ## Setup and Installation
 
