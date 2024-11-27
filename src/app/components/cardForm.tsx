@@ -36,6 +36,12 @@ export default function CardForm() {
     console.log(formattedNumber);
   };
 
+  // if (state?.errors) {
+  //   Object.entries(state, errors).forEach(([key, message]) => {
+  //     toast.error(`${key}: ${message}`);
+  //   });
+  // }
+
   return (
     <>
       <form id="cardForm" className="form" action={action}>
